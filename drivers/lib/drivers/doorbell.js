@@ -28,7 +28,7 @@ module.exports = Mixin(superclass => class Socket extends mix(superclass).with(D
 	updateRealtime(device, state, oldState) {
 		super.updateRealtime(device, state, oldState);
 		if (Boolean(Number(state.state)) !== Boolean(Number(oldState.state))) {
-			this.realtime(device, 'generic_alarm', Boolean(Number(state.state)));
+			this.realtime(device, 'alarm_generic', Boolean(Number(state.state)));
 		}
 	}
 
@@ -55,7 +55,7 @@ module.exports = Mixin(superclass => class Socket extends mix(superclass).with(D
 	getExports() {
 		const exports = super.getExports();
 		exports.capabilities = {};
-		exports.capabilities.generic_alarm = {
+		exports.capabilities.alarm_generic = {
 			get: (device, callback) => callback(null, Boolean(Number(this.getState(device).state))),
 			set: (device, state, callback) => this.send(device, { state: state ? 1 : 0 }, () => callback(null, state)),
 		};
